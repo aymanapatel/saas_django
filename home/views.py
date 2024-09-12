@@ -3,19 +3,29 @@ from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from .models import Product
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
 
 
-def home(request):
-    # return HttpResponse("Hello world")
-    return render(request, 'home/hello_world.html', {'today': datetime.today()})
+class HomeView(TemplateView):
+    template_name = 'home/hello_world.html'
+    extra_context = {'today': datetime.today()}
 
+class AuthorizedView(LoginRequiredMixin, TemplateView):
+    template_name = 'home/authorized.html'
+    login_url = '/admin'
 
-@login_required(login_url='/admin')
-def authorized(request):
-    return render(request, 'home/authorized.html', {})
+# def home(request):
+#     # return HttpResponse("Hello world")
+#     return render(request, 'home/hello_world.html', {'today': datetime.today()})
+#
+#
+# @login_required(login_url='/admin')
+# def authorized(request):
+#     return render(request, 'home/authorized.html', {})
 
 
 def list_prod(request):
