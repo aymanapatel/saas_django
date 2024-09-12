@@ -72,3 +72,9 @@ user -> `/home` -> link:./saas_django/urls.py[`url.py`]'s url pattern match with
 It is MVT Framework.
 
 Model -> View -> Template
+
+Template is created `<app>/templates/<folder>`
+
+```
+return render(request, '<folder>/hello_world.html', {'today': datetime.today()})
+```
