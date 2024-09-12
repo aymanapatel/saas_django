@@ -1,0 +1,58 @@
+= Getting Started
+
+
+
+== Installation
+
+
+1. Getting Started
+
+```shell
+django-admin startproject <project_name>
+```
+
+2. Running
+
+
+```shell
+python manage.py runserver
+```
+
+
+== Django Admin
+
+`django-admin` is the CLI to manage all things Django
+
+Subcommands
+
+
+```
+    check
+    compilemessages
+    createcachetable
+    dbshell
+    diffsettings
+    dumpdata
+    flush
+    inspectdb
+    loaddata
+    makemessages
+    makemigrations
+    migrate
+    optimizemigration
+    runserver
+    sendtestemail
+    shell
+    showmigrations
+    sqlflush
+    sqlmigrate
+    sqlsequencereset
+    squashmigrations
+    startapp
+    startproject
+    test
+    testserver
+```
+
+
+
