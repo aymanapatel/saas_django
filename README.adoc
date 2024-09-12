@@ -56,3 +56,19 @@ Subcommands
 
 
 
+
+== Route
+
+
+Create new app
+
+```
+django-admin startapp home
+```
+
+
+user -> `/home` -> link:./saas_django/urls.py[`url.py`]'s url pattern match with `home` -> link:./home/views.py[`views.py`] -> `def home`
+
+It is MVT Framework.
+
+Model -> View -> Template
