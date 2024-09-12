@@ -122,4 +122,24 @@ python manage.py createsuperuser
 ```
 
 
+=== Writing a Model E2E
+
+
+Classes -> `makeMigrations` -> `migrate` -> Database
+
+
+1. Create Model
+2. `python manage.py makemigrations`
+3. `python manage.py migrate`
+4. Check Admin
+
+Django QuerySet has good functions that are nice for ORM specific things.
+
+```
+>>> Product.objects.filter(product_name__startswith="ip").exclude(product_desc__icontains="tr")
+```
+
+https://docs.djangoproject.com/en/5.1/topics/db/queries/[Check out here]
+
+
 
