@@ -6,7 +6,6 @@ from home.models import Product
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('product_name',)
-    Product.objects.first(produ)
 
 
 admin.site.register(models.Product, ProductAdmin)

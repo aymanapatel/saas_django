@@ -141,5 +141,8 @@ Django QuerySet has good functions that are nice for ORM specific things.
 
 https://docs.djangoproject.com/en/5.1/topics/db/queries/[Check out here]
 
+== Class Based View
+
+
 
 
