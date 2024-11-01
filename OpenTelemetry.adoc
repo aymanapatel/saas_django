@@ -1,0 +1,125 @@
+
+
+== Installation
+
+
+1. Prerequisite: Install Postgres libraries
+
+In RHEL, CentOS
+
+`yum install postgresql-devel postgresql-libs`
+
+In Ubuntu:
+
+`sudo apt install libpq-dev python3-dev`
+
+
+2. Install packages
+
+
+```
+python -m pip install -r requirements.txt
+```
+
+
+== Simple Tracing
+
+
+1. Instrumentation
+
+Add instrumenation setup as `DjangoInstrumentor().instrument()` in the link:./manage.py[`manage.py`] 
+
+
+```python
+from opentelemetry.instrumentation.django import DjangoInstrumentor
+
+
+def main():
+    ## Other Code
+    DjangoInstrumentor().instrument()
+    ### Rest code
+    execute_from_command_line(sys.argv)
+
+
+if __name__ == '__main__':
+    main()
+
+```
+
+2. Add Tracing
+
+
+Add tracing from opentelemetry in individual app i.e homes's link:./app.py[`app.py`] file
+
+```python
+import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import (
+    BatchSpanProcessor,
+    ConsoleSpanExporter,
+)
+
+provider = TracerProvider()
+processor = BatchSpanProcessor(ConsoleSpanExporter())
+provider.add_span_processor(processor)
+
+# Sets the global default tracer provider
+trace.set_tracer_provider(provider)
+
+# Creates a tracer from the global tracer provider
+tracer = trace.get_tracer("my.tracer.name")
+```
+
+3. Add in View (Optional)
+
+```python
+def my_view(request):
+    # Create a custom span
+    with tracer.start_as_current_span("custom-span"):
+        return HttpResponse("Hello, World!")  
+```
+
+4. Output
+
+```
+{
+    "name": "home",
+    "context": {
+        "trace_id": "0x94b37c29f4f848fb2fbd11906c76ee77",
+        "span_id": "0x29ebc6ac02b7d573",
+        "trace_state": "[]"
+    },
+    "kind": "SpanKind.SERVER",
+    "parent_id": null,
+    "start_time": "2024-11-01T17:26:41.594486Z",
+    "end_time": "2024-11-01T17:26:41.601673Z",
+    "status": {
+        "status_code": "UNSET"
+    },
+    "attributes": {
+        "http.method": "GET",
+        "http.server_name": "my-domain",
+        "http.scheme": "http",
+        "net.host.port": 8080,
+        "http.host": "my-domain.int:8080",
+        "http.url": "http://my-domain.int:8080/home",
+        "net.peer.ip": "<ip-address>",
+        "http.user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+        "http.flavor": "1.1",
+        "http.route": "home",
+        "http.status_code": 200
+    },
+    "events": [],
+    "links": [],
+    "resource": {
+        "attributes": {
+            "telemetry.sdk.language": "python",
+            "telemetry.sdk.name": "opentelemetry",
+            "telemetry.sdk.version": "1.12.0",
+            "service.name": "unknown_service"
+        },
+        "schema_url": ""
+    }
+}
+```
+

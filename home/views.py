@@ -18,6 +18,15 @@ class AuthorizedView(LoginRequiredMixin, TemplateView):
     template_name = 'home/authorized.html'
     login_url = '/admin'
 
+from opentelemetry import trace
+
+tracer = trace.get_tracer(__name__)
+
+def my_view(request):
+    # Create a custom span
+    with tracer.start_as_current_span("custom-span"):
+        return HttpResponse("Hello, World!")    
+
 # def home(request):
 #     # return HttpResponse("Hello world")
 #     return render(request, 'home/hello_world.html', {'today': datetime.today()})
