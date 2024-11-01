@@ -1,0 +1,13 @@
+= Features
+
+
+
+
+
+1. Tailwind
+2. Django-REST
+3. Postgres
+4. Opentelemetry
+5. Pytest
+6. Testcontainers
+
