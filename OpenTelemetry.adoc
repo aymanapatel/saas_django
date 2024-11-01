@@ -49,7 +49,7 @@ if __name__ == '__main__':
 2. Add Tracing
 
 
-Add tracing from opentelemetry in individual app i.e homes's link:./app.py[`app.py`] file
+Add tracing from opentelemetry in individual app i.e homes's link:./home/app.py[`app.py`] file
 
 ```python
 import trace
